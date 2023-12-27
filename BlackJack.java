@@ -6,7 +6,8 @@ class BlackJack {
   static int balance = 1000; // temp variable
   static int betAmount;
   static double newBal;
-  static int handSum;
+  static int playerHandSum;
+  static int hitOrStand;
   
   public static void main(String[] args) {
 
@@ -23,6 +24,7 @@ class BlackJack {
       // initial dealer hand
       int dealerCard1 = (int)Math.floor(Math.random()*(max-min+1)+min);
       int dealerCard2 = (int)Math.floor(Math.random()*(max-min+1)+min);
+      int dealerHandSum = dealerCard1 + dealerCard2;
 
     // intro
     System.out.println("Welcome to Blackjack");
@@ -35,17 +37,19 @@ class BlackJack {
     // start of the game
     System.out.println("Your cards are " + playerCard1 + " and " + playerCard2);
     System.out.println("The dealer's cards are " + dealerCard1 + " and an unknown card");
-    handSum = playerCard1 + playerCard2;
+    playerHandSum = playerCard1 + playerCard2;
     
-    winLose(handSum);
+    winLose(playerHandSum);
       
     System.out.println("Would you like to hit (1) or stand? (2)");
-    int hitOrStand = myObj.nextInt();
+    hitOrStand = myObj.nextInt();
 
     // hit or stand
     int playerCard3 = (int)Math.floor(Math.random()*(max-min+1)+min);
     if (hitOrStand == 1) {
     System.out.println("Your current hand is " + playerCard1 + ", " + playerCard2 + ", and " + playerCard3);
+    } else if (hitOrStand == 2) {
+      standWinLose(playerHandSum, dealerHandSum);
     }
 
     System.out.println("Would you like to hit (1) or stand? (2)");
@@ -55,9 +59,11 @@ class BlackJack {
     int playerCard4 = (int)Math.floor(Math.random()*(max-min+1)+min);
     if (hitOrStand == 1) {
       System.out.println("Your current hand is " + playerCard1 + ", " + playerCard2 + ", " + playerCard3 + ", and " + playerCard4);
+    } else if (hitOrStand == 2) {
+      standWinLose(playerHandSum, dealerHandSum);
     }
 
-    winLose(handSum);
+    winLose(playerHandSum);
 
     System.out.println("Would you like to hit (1) or stand? (2)");
     hitOrStand = myObj.nextInt();
@@ -66,18 +72,34 @@ class BlackJack {
     if (hitOrStand == 1) {
       int playerCard5 = (int)Math.floor(Math.random()*(max-min+1)+min);
       System.out.println("Your current hand is " + playerCard1 + ", " + playerCard2 + ", " + playerCard3 + ", " + playerCard4 + ", and " + playerCard5);
-    }  
+    } else if (hitOrStand == 2) {
+      standWinLose(playerHandSum, dealerHandSum);
+    }
 
-    winLose(handSum);
+    winLose(playerHandSum);
     
   }
   
-  public static void winLose(int handSum) {
-    if (handSum == 21) {
+  public static void winLose(int playerHandSum) {
+    if (playerHandSum == 21) {
       System.out.println("You got a Blackjack! You win!");
       newBal = balance * 1.5;
-    } else if (handSum > 21) {
+    } else if (playerHandSum > 21) {
       System.out.println("You busted! You lose!");
+      newBal = balance - betAmount;
+    }
+  }
+
+  public static void standWinLose(int playerHandSum, int dealerHandSum) {
+    if (playerHandSum > dealerHandSum) {
+      System.out.println("You win!");
+      newBal = balance + betAmount;
+      System.out.println("Congratulations! Your new balance is " + newBal");   
+    } else if (playerHandSum < dealerHandSum) {
+      System.out.println("You lose! Hahahahaha have fun being poor");
+      newBal = balance - betAmount;
+    } else if (playerHandSum == dealerHandSum) {
+      System.out.println("You tied! But you still lose hahahaa");
       newBal = balance - betAmount;
     }
   }
