@@ -1,7 +1,8 @@
+
 public class Title {
-	public static void draw() throws InterruptedException {
+	public static void drawTitle() throws InterruptedException {
 		System.out.println(Variables.black + 
-						   	   "======================================================================================================================= \r\n" + Variables.red 
+						   	   " ====================================================================================================================== \r\n" + Variables.red 
 						   +   "       ____                                        ____                     ___           __    __             \n"
 						   +   "     /\\  _`\\                                     /\\  _`\\                  /\\_ \\         /\\ \\__/\\ \\__          \n"
 						   +   "     \\ \\ \\L\\ \\    ___      __   __  __     __    \\ \\ \\L\\ \\    ___   __  __\\//\\ \\      __\\ \\ ,_\\ \\ ,_\\    __   \n"
@@ -12,9 +13,11 @@ public class Title {
 						   +   "                           /\\____/                                                                            \n"
 						   +   "                           \\_/__/\r\n " + Variables.black
 						   +   "======================================================================================================================= \n");
-		DelayedText.updateText("[P] to start playing");
-		DelayedText.delayedText();
 
+	}
+	
+	public static void line() {
+		System.out.println(Variables.red + " =======================================================================================================================\r\n" + Variables.black);
 	}
 	
 }
