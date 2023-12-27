@@ -6,28 +6,48 @@ public class SlotMachine {
 	public static void intro() throws InterruptedException {
 		Title.line();
 		System.out.println(Variables.black);
-		DelayedText.updateText("Welcome to the Slot Machine!\r\n");
+		DelayedText.updateText(" Welcome to the Slot Machine!\r\n");
 		DelayedText.delayedText();
-		DelayedText.updateText("You need $20 to play. \r\nYou must match all three symbols to win.\n");
-		DelayedText.delayedText();
-		
-		DelayedText.updateText("\nYou currently have $" + Variables.money + "\n \r\n");
+		DelayedText.updateText(" You need $20 to play. \r\nYou must match all three symbols to win.\n");
 		DelayedText.delayedText();
 		
+		DelayedText.updateText("\n You currently have $" + Variables.money + "\n \r\n");
+		DelayedText.delayedText();
 		
+		determineState();
+	}
+	
+	public static void determineState() throws InterruptedException {
 		if(Variables.money > 20) {
 			Title.line();
 			System.out.println(Variables.black);
-			DelayedText.updateText("[S] to spin \n[E] to exit\n");
+			DelayedText.updateText("[1] to spin \n[2] to exit\n");
 			DelayedText.delayedText();
-			Variables.screen = s.nextLine();
+			Variables.gameState = s.nextInt();
 			
-			if(Variables.screen.equalsIgnoreCase("S")){
+			if(Variables.gameState == 1){
 				spin();
 			}
+			
+			if(Variables.gameState == 2) {
+				Variables.numExits++;
+				if(Variables.numExits == 2) {
+					Storyline.story(2);
+					Storyline.menu2();
+				} else if (Variables.numExits > 2) {
+					Storyline.menu2();
+				} else if (Variables.numExits < 2) {
+					Storyline.menu1();
+				}
+			}
+		} else if (Variables.money < 20) {
+			System.out.println(Variables.black);
+			DelayedText.updateText(" You have insufficient funds \n[E] to exit\n");
+			DelayedText.delayedText();
+
 		}
+		
 	}
-	
 	public static void spin() throws InterruptedException {
 		Variables.money = Variables.money - 20;
 		
@@ -52,20 +72,18 @@ public class SlotMachine {
 			Variables.money += amountWin;
 			Title.line();
 			System.out.println(Variables.black);
-			DelayedText.updateText("Congratulations!\r\n" + "You won $" + amountWin);
+			DelayedText.updateText(" Congratulations!\r\n" + "You won $" + amountWin);
 			DelayedText.delayedText();
 		} else {
 			System.out.println(Variables.black);
-			DelayedText.updateText("Ha! Ha! You Lose!\r\n");
+			DelayedText.updateText(" Ha! Ha! You Lose!\r\n");
+			DelayedText.delayedText();
+			DelayedText.updateText(" your new balance is " + Variables.money +"\r\n");
 			DelayedText.delayedText();
 		}
 		
 		//change game state
-		Title.line();
-		System.out.println(Variables.black);
-		DelayedText.updateText("[S] to spin \n[E] to exit\n");
-		DelayedText.delayedText();
-		Variables.screen = s.nextLine();
+		determineState();
 	}
 	
 	public static int determineCash(char s) {
