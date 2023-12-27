@@ -1,15 +1,18 @@
 import java.util.Scanner;
 
 class BlackJack {
+
+  // variables
+  static int balance = 1000; // temp variable
+  static int betAmount;
+  static double newBal;
+  static int handSum;
+  
   public static void main(String[] args) {
 
     // variables
-    int balance = 1000; // temp variable
     Scanner myObj = new Scanner(System.in); 
-    int betAmount;
-    int newBal;
-    int handSum;
-
+   
     //random number generator
     Math.random();
     int min = 1;
@@ -26,7 +29,7 @@ class BlackJack {
     System.out.println("Your current balance is " + balance);
     System.out.println("How much would you like to bet?");
     betAmount = myObj.nextInt();
-    System.out.println("Betting $" + betAmount + " I see. You better hope this goes your way");
+    System.out.println("Betting $" + betAmount + " I see. You better hope this goes your way.");
     newBal = balance - betAmount;
 
     // start of the game
@@ -40,9 +43,8 @@ class BlackJack {
     int hitOrStand = myObj.nextInt();
 
     // hit or stand
-
-    if (hitOrStand == 1) {
     int playerCard3 = (int)Math.floor(Math.random()*(max-min+1)+min);
+    if (hitOrStand == 1) {
     System.out.println("Your current hand is " + playerCard1 + ", " + playerCard2 + ", and " + playerCard3);
     }
 
@@ -50,8 +52,8 @@ class BlackJack {
     hitOrStand = myObj.nextInt();
 
     // hit or stand
+    int playerCard4 = (int)Math.floor(Math.random()*(max-min+1)+min);
     if (hitOrStand == 1) {
-      int playerCard4 = (int)Math.floor(Math.random()*(max-min+1)+min);
       System.out.println("Your current hand is " + playerCard1 + ", " + playerCard2 + ", " + playerCard3 + ", and " + playerCard4);
     }
 
@@ -64,12 +66,11 @@ class BlackJack {
     if (hitOrStand == 1) {
       int playerCard5 = (int)Math.floor(Math.random()*(max-min+1)+min);
       System.out.println("Your current hand is " + playerCard1 + ", " + playerCard2 + ", " + playerCard3 + ", " + playerCard4 + ", and " + playerCard5);
-    }
+    }  
 
+    winLose(handSum);
     
   }
-
-
   
   public static void winLose(int handSum) {
     if (handSum == 21) {
@@ -80,5 +81,4 @@ class BlackJack {
       newBal = balance - betAmount;
     }
   }
-  
 }
