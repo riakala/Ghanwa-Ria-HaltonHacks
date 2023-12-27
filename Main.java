@@ -1,5 +1,6 @@
 public class Main {
 	public static void main(String[] args) throws InterruptedException {
-		Title.draw();
+		Title.drawTitle();
+		Storyline.story(1);
 	}
 }
