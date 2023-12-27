@@ -42,4 +42,7 @@ class MysteryGameOne {
       System.out.println("Incorrect! You have lost 500 dollars!");
       int newBal = balance - 500;
     }
+
+    // conclusion
+    System.out.println("Congratulations! You have completed Mystery Game One. Your final balance is " + newBal + " dollars! That is really unfortunate for your friend!");
 }
