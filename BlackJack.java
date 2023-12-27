@@ -1,97 +1,163 @@
 import java.util.Scanner;
+public class Blackjack {
+	static Scanner myObj = new Scanner(System.in); 
+	
+	public static void BJ() throws InterruptedException {
 
-public class Storyline {
-	static Scanner s = new Scanner(System.in); 
-	 public static void story(int type) throws InterruptedException {
-		 if(type == 1) {
-			    DelayedText.updateText(" You and James met in kindergarden. "
-			    		+ "You knew everything about him and his life, or so you thought.\r\n"
-			    		+ " One day you receive a phone call from him. Not expecting anything different from your usual conversation, you respond"
-			    		+ "\r\n the phone with “HEY MAN!”. "
-			    		+ "He frantically responds with: "
-			    		+ "\n\n Hey man. Things aren't going so great. "
-			    		+ "I need your help. And I need it fast."
-			    		+ "\n\n Not knowing what to say you ask whats up "
-			    		+ "\n\n I got busted. I was caught embezzling money from my company and I need you to help get me out of here. Just of bit "
-			    		+ "\r\n of money would mean the world\n\n You decide to comply. After all, he is your kindergarden best friend. You make your "
-			    		+ "way over to the casino hoping"
-			    		+ "\r\n to make some money. \n\n\n *at the casino*\n\n You walk into the casino, having no previous gambling experience but your "
-			    		+ "friends fate depends on this. \n\n You see a plethora of games to play. You can choose from the following: \n");
-			    DelayedText.delayedText();
-			    Title.line();
-			    menu1();
-		 }
-		 
-		 if (type == 2) {
-			 Title.line();
-			 DelayedText.updateText(" So you've begun your attempt to break your friend free from jail. \r\n Everything seems to be going well. Soon your friend"
-			 		+ " will be with you again. \r\n *ring ring* \r\n That's suspicious. A phone call from an unknown number. You choose to pick it up. \r\n "
-			 		+ "Hello sir. This is the Russian Mafia calling. We know what you're up to. \r\n *call abruptly ends* \r\n You're slightly terrified as you "
-			 		+ "know nothing of what your friend has concerned himself with however, \r\n you made it your goal to break him free and you're not stopping "
-			 		+ "now. \r\n One last mystery game awaits you to determine his fate. \r\n Would you like to play?\r\n");
-			 	DelayedText.delayedText();
-			 	Title.line();
-			    menu2();
-		 }
-		 
-		 //conclusion
-		 if(type == 3) {
-			 System.out.println(Variables.black);
-			 DelayedText.updateText(" Unfortunately the Russian Mafia has closed in on you.\r\n"
-			 		+ " You’ve played all the games you possibly could at the casino and it’s time to see if you were able to save your friends fate.\r\n"
-			 		+ " You check your balance and you see $0.\r\n"
-			 		+ " You think to yourself how this could be possible after going through all the efforts to play those extremely rigged games.\r\n"
-			 		+ " You realize its finished and you’re not going to be able to save James.\r\n"
-			 		+ " The Mafia grant you one last phone call to him.\n\n"
-			 		+ " James....is that you?\n\n"
-			 		+ " Yes. I’ve heard from the mafia that you were unable to save me. I guess that’s what I get for embezzling money.\n\n"
-			 		+ " I’m sorry James\n\n"
-			 		+ " You tried your hardest I’ll always be gratef -\n\n"
-			 		+ " *gunshot fires in the background*\n\n"
-			 		+ " JAMES?? JAMES ARE YOU OKAY\n\n"
-			 		+ " _______\n\n"
-			 		+ " JAMES PLEASE\n\n"
-			 		+ " *James responds faintly*\n\n"
-			 		+ " I will always love you\n\n"
-			 		+ " *silence*\n\n"
-			 		+ " NOOOOOOOO\n\n"
-			 		+ " *everyone dies and the world blows up*\n\n\n"
-			 		+ " THE END.");
-			 DelayedText.delayedText();
-		 }
-	 }
+
+	    //random number generator
+	    Math.random();
+	    int min = 1;
+	    int max = 11;
+	      // player hand
+	      int playerCard1 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      int playerCard2 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      int playerCard3 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      int playerCard4 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      int playerCard5 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      // initial dealer hand
+	      int dealerCard1 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      int dealerCard2 = (int)Math.floor(Math.random()*(max-min+1)+min);
+	      int dealerHandSum = dealerCard1 + dealerCard2;
+
+	    // intro
+	      DelayedText.updateText(" Welcome to Blackjack\r\n Your current balance is " + Variables.balance
+				  				+"\r\n How much would you like to bet? ");
+	      DelayedText.delayedText();
+
+	      Variables.betAmount = myObj.nextInt();
+
+	      DelayedText.updateText(" Betting $" + Variables.betAmount + " I see. You better hope this goes your way.");
+	      DelayedText.delayedText();
+
+		    
+	    // start of the game
+	    Variables.active = true;
+	    System.out.println("\r\n Your cards are " + playerCard1 + " and " + playerCard2);
+	    System.out.println(" The dealer's cards are " + dealerCard1 + " and an unknown card");
+	    Variables.playerHandSum = playerCard1 + playerCard2;
+	    
+	    winLose(Variables.playerHandSum);
+	    
+	    if (Variables.active == true) {
+	    	System.out.println(" Would you like to hit (1) or stand? (2)");
+	    	Variables.hitOrStand = myObj.nextInt();
 	 
-	 public static void menu1() throws InterruptedException{
-		 System.out.println(Variables.red);
-		 Title.line();
-		 DelayedText.updateText("==== Menu ====\r\n");
-		 DelayedText.delayedText();
-		 
-		 System.out.println(Variables.black + "[1] Blackjack\r\n" + "[2] Slot Machine");
-		 Variables.gameState = s.nextInt();
-		 
-		 if(Variables.gameState == 1) {
-			 Blackjack.BJ();
-		 } else if (Variables.gameState == 2) {
-			 SlotMachine.intro();
-		 }
-	 }
+	    	if (Variables.hitOrStand == 1) {
+	    		System.out.println(" Your current hand is " + playerCard1 + ", " + playerCard2 + ", and " + playerCard3);
+	    		Variables.playerHandSum = playerCard1 + playerCard2 + playerCard3;
+	    	} else if (Variables.hitOrStand == 2) {
+	    		standWinLose(Variables.playerHandSum, dealerHandSum);
+	    		Variables.active = false;
+	    	}
+	    }
+	    
+	    // winLose(Variables.playerHandSum);
+
+	    if (Variables.active == true) {
+	    	winLose(Variables.playerHandSum);
+	    	System.out.println(" Would you like to hit (1) or stand? (2)");
+	    	Variables.hitOrStand = myObj.nextInt();
+	    
+	    	if (Variables.hitOrStand == 1) {
+	    		System.out.println(" Your current hand is " + playerCard1 + ", " + playerCard2 + ", " + playerCard3 + ", and " + playerCard4);
+	    		Variables.playerHandSum = playerCard1 + playerCard2 + playerCard3 + playerCard4;
+	    	} else if (Variables.hitOrStand == 2) {
+	    		standWinLose(Variables.playerHandSum, dealerHandSum);
+	    		Variables.active = false;
+	    	}
+	    }
+	    
+	   //winLose(Variables.playerHandSum);
+	    
+	    if (Variables.active == true) {
+	 	    winLose(Variables.playerHandSum);
+	    	System.out.println(" Would you like to hit (1) or stand? (2)");
+	    	Variables.hitOrStand = myObj.nextInt();
+
+	    	if (Variables.hitOrStand == 1) {
+	    		System.out.println(" Your current hand is " + playerCard1 + ", " + playerCard2 + ", " + playerCard3 + ", " + playerCard4 + ", and " + playerCard5);
+	    		Variables.playerHandSum = playerCard1 + playerCard2 + playerCard3 + playerCard4 + playerCard5;
+	    	} else if (Variables.hitOrStand == 2) {
+	    		standWinLose(Variables.playerHandSum, dealerHandSum);
+	    		Variables.active = false;
+	    	}
+	    	winLose(Variables.playerHandSum);
+	    }
+	    
+	   // winLose(Variables.playerHandSum);
+	  }
+	  
+	  public static void winLose(int playerHandSum) throws InterruptedException {
+		  if (playerHandSum == 21) {
+		      System.out.println(" You got a Blackjack! You win!");
+		      Variables.newBal = Variables.balance * 1.5;
+		      Variables.active = false;
+		      System.out.println(" Your new balance is " + Variables.newBal);
+		      determineState();
+		      
+		    } else if (playerHandSum > 21) {
+		      System.out.println(" You busted! You lose! Hahhaahahah Poor.");
+		      Variables.newBal = Variables.balance - Variables.betAmount;
+		      Variables.active = false;
+		      System.out.println(" YOUR NEW BROKE BALANCE IS " + Variables.newBal);
+		      determineState();
+		    }
+	  }
 	 
-	 public static void menu2() throws InterruptedException {
-		 System.out.println(Variables.red);
-		 Title.line();
-		 DelayedText.updateText("==== Menu ====\r\n");
-		 DelayedText.delayedText();
-		 
-		 System.out.println(Variables.black + "[1] Blackjack\r\n" + "[2] Slot Machine\r\n" + " [3] Mystery Game");
-		 Variables.gameState = s.nextInt();
-		 
-		 if(Variables.gameState == 1) {
-			 Blackjack.BJ();
-		 } else if (Variables.gameState == 2) {
-			 SlotMachine.intro();
-		 } else if(Variables.gameState == 3) {
-			 MysteryGame.mGame();
-		 } 
-	 }
+
+	  public static void standWinLose(int playerHandSum, int dealerHandSum) throws InterruptedException {
+		   if (playerHandSum > dealerHandSum) {
+		      System.out.println(" You win!");
+		      Variables.newBal = Variables.balance + Variables.betAmount;
+		      System.out.println(" Congratulations! Your new balance is " + Variables.newBal);
+		      Variables.active = false;
+		      determineState();
+		    } else if (playerHandSum < dealerHandSum) {
+		      System.out.println(" You lose! Hahahahaha have fun being poor");
+		      Variables.newBal = Variables.balance - Variables.betAmount;
+		      Variables.active = false;
+		      System.out.println(" YOUR NEW BROKE BALANCE IS " + Variables.newBal);
+		      determineState();
+		    } else if (playerHandSum == dealerHandSum) {
+		      System.out.println(" You tied! But you still lose hahahaa");
+		      Variables.newBal = Variables.balance - Variables.betAmount;
+		      Variables.active = false;
+		      System.out.println(" YOUR NEW BROKE BALANCE IS " + Variables.newBal);
+		      determineState();
+		    }
+	  }
+	  
+	  
+	  public static void determineState() throws InterruptedException {
+			if(Variables.balance > 0) {
+				Title.line();
+				System.out.println(Variables.black);
+				DelayedText.updateText("[1] to play again \n[2] to exit\n");
+				DelayedText.delayedText();
+				Variables.gameState = myObj.nextInt();
+				
+				if(Variables.gameState == 1){
+					BJ();
+				} else if(Variables.gameState == 2) {
+					Variables.numExits++;
+					if(Variables.numExits == 2) {
+						Storyline.story(2);
+						Storyline.menu2();
+					} else if (Variables.numExits > 2) {
+						Storyline.menu2();
+					} else if (Variables.numExits < 2) {
+						Storyline.menu1();
+					}
+				}
+			} else if (Variables.money < 0) {
+				System.out.println(Variables.black);
+				DelayedText.updateText(" You have insufficient funds \n[2] to exit\n");
+				DelayedText.delayedText();
+
+			}
+			Variables.active = false;
+			
+		}
+
 }
